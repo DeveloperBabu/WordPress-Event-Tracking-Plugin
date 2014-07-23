@@ -44,50 +44,26 @@ function addWPTrackingOptions(){
     ?>
     <div class="wrap">
         <h2>WordPress Tracking</h2>
-
+        <div id="detailview"><i>The Wordpress tracking plugin Logs every new post with posted time , Log every new comments and reply posted time</i></div>
         <form method="post" action="options.php">
-            <?php settings_fields('netforum-sso-settings-group'); ?>
-            <?php do_settings_sections('netforum-sso-settings-group'); ?>
             <table class="form-table">
                 <tr valign="top">
-                    <th scope="row">Disable new user creation in netforum ?</th>
-                    <td><input type="checkbox" id="netforum_user_create" name="netforum_user_create" value=1 <?php echo (get_option('netforum_user_create')==1)?"checked":""?> /></td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row">Disable Write back to netforum ?</th>
-                    <td><input type="checkbox" id="netforum_write" name="netforum_write" value=1 <?php echo (get_option('netforum_write')==1)?"checked":""?> /></td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row">xWeb Single SignOn WSDL URL</th>
-                    <td><input type="text" name="xweb_sso_wsdl_url" size="60"
-                               value="<?php echo get_option('xweb_sso_wsdl_url'); ?>"/></td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row">xWeb Single SignOn WSDL URL</th>
-                    <td><input type="text" name="xweb_sso_wsdl_url" size="60"
-                               value="<?php echo get_option('xweb_sso_wsdl_url'); ?>"/></td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row">xWeb onDemand WSDL URL</th>
-                    <td><input type="text" name="xweb_ondemand_wsdl_url" size="60"
-                               value="<?php echo get_option('xweb_ondemand_wsdl_url'); ?>"/></td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row">xWeb Admin Username</th>
-                    <td><input type="text" name="xweb_admin_username" size="30"
-                               value="<?php echo get_option('xweb_admin_username'); ?>"/></td>
-                </tr>
-
-                <tr valign="top">
-                    <th scope="row">xWeb Admin Password</th>
-                    <td><input type="text" name="xweb_admin_password" size="30"
-                               value="<?php echo get_option('xweb_admin_password'); ?>"/></td>
+                    <th scope="row">Log New Post</th>
+                    <td><input type="checkbox" id="netforum_user_create" name="wp_tracking_post" value=1/></td>
                 </tr>
             </table>
-
             <?php submit_button(); ?>
-
         </form>
+        <style>
+            #detailview{
+                width: 100%;
+                background: none repeat scroll 0% 0% #FFF;
+                height: 25px;
+                border-radius: 7px;
+                box-shadow: 0px 1px 2px #D3D33D;
+                padding: 1% 5%;
+            }
+        </style>
     </div>
 <?php
 }
