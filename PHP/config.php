@@ -46,11 +46,25 @@ function addWPTrackingOptions(){
         <h2>WordPress Tracking</h2>
         <div id="detailview"><i>The Wordpress tracking plugin Logs every new post with posted time , Log every new comments and reply posted time</i></div>
         <form method="post" action="options.php">
+            <?php settings_fields('wptracking-settings-group'); ?>
+            <?php do_settings_sections('wptracking-settings-group'); ?>
+            <?php $post=((get_option('wp_tracking_post')==1)?"checked":((get_option('wp_tracking_post')==null)?"":""));?>
+            <?php $comment=((get_option('wp_tracking_comment')==1)?"checked":((get_option('wp_tracking_comment')==null)?"":""));?>
+            <?php $reply=((get_option('wp_tracking_reply')==1)?"checked":((get_option('wp_tracking_reply')==null)?"":""));?>
             <table class="form-table">
                 <tr valign="top">
                     <th scope="row">Log New Post</th>
-                    <td><input type="checkbox" id="wp_tracking_post" name="wp_tracking_post" value=1/></td>
+                    <td><input type="checkbox" id="wp_tracking_post" name="wp_tracking_post" value=1 <?php echo $post;?>/></td>
                 </tr>
+                <tr valign="top">
+                    <th scope="row">Log Comments</th>
+                    <td><input type="checkbox" id="wp_tracking_comment" name="wp_tracking_comment" value=1 <?php echo $comment;?>/></td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">Log Comment Reply</th>
+                    <td><input type="checkbox" id="wp_tracking_reply" name="wp_tracking_reply" value=1 <?php echo $reply;?>/></td>
+                </tr>
+                
             </table>
             <?php submit_button(); ?>
         </form>
@@ -70,5 +84,13 @@ function addWPTrackingOptions(){
 
 //Register the options on Wordpress
 function registerWPTrackingSettings(){
-    
+     register_setting('wptracking-settings-group', //settings page
+        'wp_tracking_post' //option name
+    );
+     register_setting('wptracking-settings-group', //settings page
+        'wp_tracking_comment' //option name
+    );
+     register_setting('wptracking-settings-group', //settings page
+        'wp_tracking_reply' //option name
+    );
 }
