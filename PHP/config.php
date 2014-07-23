@@ -27,3 +27,24 @@ add_action('admin_menu', 'wp_tracking_menus');
 
 /*--------Tables creation ---------------*/
 include_once 'tables.php';
+
+function wp_tracking_menus()
+{
+    add_options_page('WP-Tracking', //page_title
+        'WP-Tracking', //menu title
+        'manage_options', //capability
+        __FILE__,
+        'addWPTrackingOptions');
+    //call register settings function
+    add_action('admin_init', 'registerWPTrackingSettings');
+}
+
+//Give options for tracking 
+function addWPTrackingOptions(){
+    
+}
+
+//Register the options on Wordpress
+function registerWPTrackingSettings(){
+    
+}
