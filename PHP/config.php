@@ -25,3 +25,5 @@ SOFTWARE.*/
 /* --------Admin Menu Creation------------*/
 add_action('admin_menu', 'wp_tracking_menus');
 
+/*--------Tables creation ---------------*/
+include_once 'tables.php';
