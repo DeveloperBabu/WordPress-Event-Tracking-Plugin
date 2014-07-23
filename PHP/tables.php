@@ -25,7 +25,7 @@ SOFTWARE.*/
 /*--------Table creation--------*/
 add_action('init','create_tables');
 
-function createtables()
+function create_tables()
 {
 
         global $wpdb;
