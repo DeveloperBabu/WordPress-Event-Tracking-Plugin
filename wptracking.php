@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WordPress Event Tracking Plugin
  * Plugin URI: https://github.com/BabuYii/WordPress-Event-Tracking-Plugin
- * Description: The event tracking plugin Logs every new post with posted time , Log every new comments and reply posted time
+ * Description: The WordPress tracking plugin Logs every new post with posted time , Log every new comments and reply posted time
  * Version: 1.0
  * Author: Babu M
  * Author URI: https://github.com/BabuYii
@@ -28,4 +28,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-?>
+
+
+require_once('PHP/config.php');
+
+class WPTracking{
+    
+     static $instance;
+    
+     function __construct()
+    {
+        self::$instance = $this;
+
+        add_action('init', array($this, 'init'));
+    }
+    function init()
+    {
+        
+    }
+    
+}
