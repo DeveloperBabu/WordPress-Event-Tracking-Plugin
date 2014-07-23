@@ -49,7 +49,7 @@ function addWPTrackingOptions(){
             <table class="form-table">
                 <tr valign="top">
                     <th scope="row">Log New Post</th>
-                    <td><input type="checkbox" id="netforum_user_create" name="wp_tracking_post" value=1/></td>
+                    <td><input type="checkbox" id="wp_tracking_post" name="wp_tracking_post" value=1/></td>
                 </tr>
             </table>
             <?php submit_button(); ?>
