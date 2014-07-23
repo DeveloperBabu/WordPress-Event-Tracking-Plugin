@@ -54,5 +54,7 @@ function create_tables()
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
             dbDelta($sql);
         }
-       
+       add_option( 'wp_tracking_post', 1);
+       add_option( 'wp_tracking_comment', 1);
+       add_option( 'wp_tracking_reply', 1);
 }
