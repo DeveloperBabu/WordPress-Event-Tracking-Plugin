@@ -41,7 +41,55 @@ function wp_tracking_menus()
 
 //Give options for tracking 
 function addWPTrackingOptions(){
-    
+    ?>
+    <div class="wrap">
+        <h2>WordPress Tracking</h2>
+
+        <form method="post" action="options.php">
+            <?php settings_fields('netforum-sso-settings-group'); ?>
+            <?php do_settings_sections('netforum-sso-settings-group'); ?>
+            <table class="form-table">
+                <tr valign="top">
+                    <th scope="row">Disable new user creation in netforum ?</th>
+                    <td><input type="checkbox" id="netforum_user_create" name="netforum_user_create" value=1 <?php echo (get_option('netforum_user_create')==1)?"checked":""?> /></td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">Disable Write back to netforum ?</th>
+                    <td><input type="checkbox" id="netforum_write" name="netforum_write" value=1 <?php echo (get_option('netforum_write')==1)?"checked":""?> /></td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">xWeb Single SignOn WSDL URL</th>
+                    <td><input type="text" name="xweb_sso_wsdl_url" size="60"
+                               value="<?php echo get_option('xweb_sso_wsdl_url'); ?>"/></td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">xWeb Single SignOn WSDL URL</th>
+                    <td><input type="text" name="xweb_sso_wsdl_url" size="60"
+                               value="<?php echo get_option('xweb_sso_wsdl_url'); ?>"/></td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">xWeb onDemand WSDL URL</th>
+                    <td><input type="text" name="xweb_ondemand_wsdl_url" size="60"
+                               value="<?php echo get_option('xweb_ondemand_wsdl_url'); ?>"/></td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">xWeb Admin Username</th>
+                    <td><input type="text" name="xweb_admin_username" size="30"
+                               value="<?php echo get_option('xweb_admin_username'); ?>"/></td>
+                </tr>
+
+                <tr valign="top">
+                    <th scope="row">xWeb Admin Password</th>
+                    <td><input type="text" name="xweb_admin_password" size="30"
+                               value="<?php echo get_option('xweb_admin_password'); ?>"/></td>
+                </tr>
+            </table>
+
+            <?php submit_button(); ?>
+
+        </form>
+    </div>
+<?php
 }
 
 //Register the options on Wordpress
