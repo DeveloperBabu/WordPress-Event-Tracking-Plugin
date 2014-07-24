@@ -70,8 +70,45 @@ class WPTracking{
     
     public function wplog($type,$data)
     {
+        global $wpdb;
         //Save log by data 
-        
+        if($type=='P')
+        {
+            if(get_option('wp_tracking_post')==1)
+            {
+                $user=get_user_meta( $data->post_author);
+                $author=$user['nickname'];
+                $posttitle=$data->post_name;
+                $post_id=$data->ID;
+                $insert="INSERT INTO `".$wpdb->prefix."tracking`( `track_type`, `post_id`, `content`, `author`) VALUES
+                    ('P', '$post_id', '$posttitle','$author')";
+                $wpdb->query($insert);
+            }
+        }
+        if($type=='C')
+        {
+            if(get_option('wp_tracking_comment')==1)
+            {
+                $author=$data->comment_author;
+                $comment=$data->comment_content;
+                $com_id=$data->comment_ID;
+                $insert="INSERT INTO `".$wpdb->prefix."tracking`( `track_type`, `comment_id`, `content`, `author`) VALUES
+                    ('C', '$com_id', '$comment','$author')";
+                $wpdb->query($insert);
+            }
+        }
+        if($type=='R')
+        {
+            if(get_option('wp_tracking_reply')==1)
+            {
+                $author=$data->comment_author;
+                $comment=$data->comment_content;
+                $com_id=$data->comment_ID;
+                $insert="INSERT INTO `".$wpdb->prefix."tracking`( `track_type`, `comment_id`, `content`, `author`) VALUES
+                    ('R', '$com_id', '$comment','$author')";
+                $wpdb->query($insert);
+            }
+        }
     }
 }
 new WPTracking;
