@@ -71,7 +71,9 @@ class WPTracking{
     public function wplog($type,$data)
     {
         //Save log by data 
-        
+        echo "<pre>";
+        print_r($data);
+        exit();
         
     }
 }
