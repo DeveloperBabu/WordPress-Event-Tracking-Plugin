@@ -23,20 +23,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 /* --------Admin Menu Creation------------*/
-add_action('admin_menu', 'wp_tracking_menus');
+add_action('admin_menu', 'wp_tracking_menu');
 
 /*--------Tables creation ---------------*/
 include_once 'tables.php';
 
-function wp_tracking_menus()
-{
-    add_options_page('WP-Tracking', //page_title
-        'WP-Tracking', //menu title
-        'manage_options', //capability
-        __FILE__,
-        'addWPTrackingOptions');
-    //call register settings function
+function wp_tracking_menu(){
     add_action('admin_init', 'registerWPTrackingSettings');
+    add_menu_page('WP Tracking', 'WP Tracking', 'manage_options', 'wptrack-options', 'addWPTrackingOptions');
+    add_submenu_page( 'wptrack-options', 'Track Results', 'Track Results', 'manage_options', 'wptrack-results', 'addWPTrackingResults');
 }
 
 //Give options for tracking 
@@ -44,6 +39,13 @@ function addWPTrackingOptions(){
     ?>
     <div class="wrap">
         <h2>WordPress Tracking</h2>
+        <?php 
+        if(isset($_GET['settings-updated']))
+        {?>
+            <div id="setting-error-settings_updated" class="updated settings-error"> 
+            <p><strong>Settings saved.</strong></p></div>
+        <?php 
+        }?>
         <div id="detailview"><i>The Wordpress tracking plugin Logs every new post with posted time , Log every new comments and reply posted time</i></div>
         <form method="post" action="options.php">
             <?php settings_fields('wptracking-settings-group'); ?>
@@ -78,6 +80,63 @@ function addWPTrackingOptions(){
                 padding: 1% 5%;
             }
         </style>
+    </div>
+<?php
+}
+function addWPTrackingResults(){ 
+   global $wpdb;
+   $logdata=$wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."tracking ORDER BY log_time DESC" );
+    ?>
+        <style type="text/css">
+			@import "<?php echo plugin_dir_url('WordPress-Event-Tracking-Plugin'); ?>WordPress-Event-Tracking-Plugin/css/jquery-ui-1.10.1.custom.css";
+			@import "<?php echo plugin_dir_url('WordPress-Event-Tracking-Plugin'); ?>WordPress-Event-Tracking-Plugin/css/TableTools.css";
+                        @import "<?php echo plugin_dir_url('WordPress-Event-Tracking-Plugin'); ?>WordPress-Event-Tracking-Plugin/css/demo_table_jui.css";
+                        @import "<?php echo plugin_dir_url('WordPress-Event-Tracking-Plugin'); ?>WordPress-Event-Tracking-Plugin/css/demo_page.css";
+        </style>
+         <script src="<?php echo plugin_dir_url('netforum'); ?>WordPress-Event-Tracking-Plugin/js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" language="javascript" src="<?php echo plugin_dir_url('netforum'); ?>WordPress-Event-Tracking-Plugin/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+		$('#logdata').dataTable({							
+						"sPaginationType": "full_numbers",
+						"bJQueryUI": true,
+		});
+                });
+</script>
+    <div class="wrap">
+        <h2>WordPress Tracking</h2>
+        <div id="detailview"><i>Tracking Logs</i></div>
+        <table id="logdata" width="100%">
+            <thead>
+                <tr>
+                    <td width="15%">Type</td>
+                    <td width="35%">Content</td>
+                    <td width="20%">Log Time</td>
+                    <td>Author</td>
+                </tr>
+            </thead>
+            <tbody>
+            <?php 
+            foreach($logdata as $value)
+            {
+                $type=($value->track_type=='P')?'Post':(($value->track_type=='C')?'Comment':(($value->track_type=='R')?"Reply":""));
+                $content=$value->content;
+                $time=$value->log_time;
+                $author=$value->author;
+                ?>
+            
+            <tr>
+                <td><?php echo $type; ?></td>
+                <td><?php echo $content; ?></td>
+                <td><?php echo $time; ?></td>
+                <td><?php echo $author; ?></td>
+            </tr>
+            
+            <?php 
+            }
+            ?>
+            </tbody>
+        </table>
     </div>
 <?php
 }
