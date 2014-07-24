@@ -1,0 +1,73 @@
+<?php
+/**
+ * Plugin Name: WordPress Event Tracking Plugin
+ * Plugin URI: https://github.com/BabuYii/WordPress-Event-Tracking-Plugin
+ * Description: The WordPress tracking plugin Logs every new post with posted time , Log every new comments and reply posted time
+ * Version: 1.0
+ * Author: Babu M
+ * Author URI: https://github.com/BabuYii
+ * License: The MIT License (MIT)
+
+Copyright (c) 2014 Babu M
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ */
+
+
+require_once('PHP/config.php');
+
+class WPTracking{
+    
+     static $instance;
+    
+     function __construct()
+    {
+        self::$instance = $this;
+
+        add_action('init', array($this, 'init'));
+    }
+    //add hooks on app init
+    function init()
+    {
+        add_action(  'transition_post_status',  array($this,'log_post'), 10, 3 );
+        add_action( 'wp_insert_comment ', array($this,'log_comment' ));
+    }
+    
+    public function log_post($new_status, $old_status, $post){
+       if($new_status=='publish'&&$old_status=='draft')
+       {
+           $this->wplog('P',$post);
+       }
+    }
+    public function log_comment($commentdata){
+        echo "<pre>";
+        print_r($commentdata);
+        exit();
+    }
+    
+    
+    public function wplog($type,$data)
+    {
+        echo "<pre>";
+        print_r($type);
+        print_r($data);
+        exit();
+    }
+}
+new WPTracking;
