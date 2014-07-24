@@ -77,7 +77,7 @@ class WPTracking{
             if(get_option('wp_tracking_post')==1)
             {
                 $user=get_user_meta( $data->post_author);
-                $author=$user['nickname'];
+                $author=$user['nickname'][0];
                 $posttitle=$data->post_name;
                 $post_id=$data->ID;
                 $insert="INSERT INTO `".$wpdb->prefix."tracking`( `track_type`, `post_id`, `content`, `author`) VALUES
