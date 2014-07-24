@@ -46,6 +46,8 @@ function create_tables()
                         `post_id` bigint(20) NOT NULL,
                         `comment_id` bigint(20) NOT NULL,
                         `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        `content` text NOT NULL,
+                        `author` varchar(100) NOT NULL,
                         PRIMARY KEY (`track_id`),
                         KEY `Post-Index` (`track_type`,`post_id`),
                         KEY `Com-Index` (`track_type`,`comment_id`),
