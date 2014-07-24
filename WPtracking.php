@@ -46,28 +46,33 @@ class WPTracking{
     function init()
     {
         add_action(  'transition_post_status',  array($this,'log_post'), 10, 3 );
-        add_action( 'wp_insert_comment ', array($this,'log_comment' ));
+        add_action( 'wp_set_comment_status ', array($this,'log_comment' ));
+        add_action('wp_insert_comment',array($this,'log_comment'),99,2);
+
     }
     
     public function log_post($new_status, $old_status, $post){
        if($new_status=='publish'&&$old_status=='draft')
        {
-           $this->wplog('P',$post);
+           $this->wplog('P',$post); //Post log
        }
     }
-    public function log_comment($commentdata){
-        echo "<pre>";
-        print_r($commentdata);
-        exit();
+    public function log_comment($comment_id, $comment_object){
+        
+       if ($comment_object->comment_parent > 0) { //Reply 
+           $this->wplog('R',$comment_object);
+       }
+       else {                                  //new comment
+           $this->wplog('C',$comment_object);
+       }
     }
     
     
     public function wplog($type,$data)
     {
-        echo "<pre>";
-        print_r($type);
-        print_r($data);
-        exit();
+        //Save log by data 
+        
+        
     }
 }
 new WPTracking;
