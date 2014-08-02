@@ -156,20 +156,6 @@ class Track_List_Table extends WP_List_Table {
 		);
 	}
 
-
-    /**
-     * Decides on which columns we want to activate the sorting facility    
-     * @return array $sortable, the array of columns that can be sorted by the user
-     */		
-	public function get_sortable_columns() {
-		return $sortable = array(
-			'col_track_type'=>'track_type',
-			'col_log_time'=>'log_time',
-			'col_author'=>'author'
-		);
-	}
-	
-	
     /**
      * Prepare the table with different parameters, pagination, columns and table elements
      */	
