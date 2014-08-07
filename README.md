@@ -1,4 +1,4 @@
-WordPress-Event-Tracking-Plugin
+Posts Logs and tracking
 ===============================
 
-The event tracking plugin Logs every new post with posted time , Log every new comments and reply posted time
+The tracking plugin Logs every new post with posted time , Log every new comments and reply posted time
