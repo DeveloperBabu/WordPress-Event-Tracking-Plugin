@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WordPress Event Tracking Plugin
+ * Plugin Name: Posts Logs and Tracking
  * Plugin URI: https://github.com/BabuYii/WordPress-Event-Tracking-Plugin
  * Description: The WordPress tracking plugin Logs every new post with posted time , Log every new comments and reply posted time
  * Version: 1.0
